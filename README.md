@@ -233,7 +233,7 @@ class StatefullComponent extends Component<LocalComponentState> {
 
     final ParentComponentState parentState;
 
-    StatefullComponent({LocalComponentState? state , required this.parentState }) : super(state ?? LocalComponentState()) {
+    StatefullComponent({LocalComponentState? state , required this.parentState }) : super(state : state ?? LocalComponentState()) {
         parentState.addListener(this);
     }
 
