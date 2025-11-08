@@ -12,7 +12,7 @@ The project is a single file you can add to your project. It provides two classe
 
 ## Creating a custom component
 
-To create a component create a class tha inherits from `Component` :
+To create a component create a class that inherits from `Component` :
 
 ```dart
 
