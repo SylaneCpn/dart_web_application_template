@@ -210,7 +210,7 @@ class MyStatefullComponent extends Component<MyStatefullComponentState> {
 
 ```
 
-Here we just change the text that use the updated text.
+Here we just change the text that use the updated state.
 
 
 ### Update UI from extenal state
