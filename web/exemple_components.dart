@@ -4,7 +4,7 @@ import 'component.dart';
 import 'package:web/web.dart';
 
 //Statefull Component
-class MyStatefullComponent extends Component<MyStatefullComponentState> {
+class MyStatefullComponent extends StateFullComponent<MyStatefullComponentState> {
 
    MyStatefullComponent({MyStatefullComponentState? state}) : super(state : state ?? MyStatefullComponentState());
 
@@ -38,9 +38,9 @@ class MyStatefullComponentState extends ComponentState {
 
 
 // StateLess Component
-class BasicText extends Component{
+class BasicText extends StatelessComponent{
   final String text;
-  BasicText({this.text = "Some Text"}) : super(state : null);
+  BasicText({this.text = "Some Text"}) : super();
   
   @override
   void build() {

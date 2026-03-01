@@ -1,18 +1,47 @@
 import 'dart:js_interop';
 import 'package:web/web.dart';
 
-abstract class Component<T extends ComponentState?> {
-  Component({required this.state}) {
-    element = HTMLDivElement();
+void runAppInElement(Component component, HTMLElement element) {
+  element.append(component.element);
+}
+
+extension AddComponent on HTMLElement {
+  void addComponent(Component component) {
+    appendChild(component.element);
+  }
+}
+
+abstract class Component {
+  final HTMLDivElement element = HTMLDivElement();
+  void build();
+  void addChild(Component component) {
+    element.addComponent(component);
+  }
+  void addChidren(List<Component> components) {
+    for (final component in components) {
+      addChild(component);
+    }
+  }
+  
+}
+
+abstract class StatelessComponent extends Component {
+  StatelessComponent() {
     build();
-    state?.addListener(this);
+  }
+}
+
+abstract class StateFullComponent<T extends ComponentState> extends Component {
+  StateFullComponent({required this.state}) {
+    build();
+    state.addListener(this);
   }
 
-
   final T state;
-  late final HTMLDivElement element;
 
+  @override
   void build();
+
   void rebuild() {
     element.innerHTML = "".toJS;
     build();
@@ -28,11 +57,11 @@ abstract class ComponentState {
     }
   }
 
-  void addListener(Component component) {
+  void addListener(StateFullComponent component) {
     _listerners.add(component.rebuild);
   }
 
-  void removeListener(Component component) {
+  void removeListener(StateFullComponent component) {
     _listerners.remove(component.rebuild);
   }
 }

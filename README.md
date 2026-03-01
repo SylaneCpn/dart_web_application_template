@@ -12,17 +12,17 @@ The project is a single file you can add to your project. It provides two classe
 
 ## Creating a custom component
 
-To create a component create a class tha inherits from `Component` :
+To create a component create a class that inherits from either `StatelessComponent` or `StatefullComponent` :
 
 ```dart
 
-class MyComponent extends Component {
+class MyComponent extends StatelessComponent {
 
 }
 
 ```
 
-A `Component` is a generic class that can be either Stateless or Statefull. We will start with a Stateless `Component`.
+We will start with a `StatelessComponent`.
 
 ### Create a Stateless Component
 
@@ -30,19 +30,19 @@ Complete `MyComponent` with a constructor :
 
 ```dart
 
-class MyComponent extends Component {
+class MyComponent extends StatelessComponent {
 
-    MyComponent() : super(state : null);
+    MyComponent() : super();
 }
 
 ```
 
-The constructor has to call the super constructor in order to work properly. For a Stateless `Component`, there is no state, that's why we provide the `state` parameter with `null`.
+The constructor has to call the super constructor in order to work properly. For a `StatelessComponent`, there is no state, so there is no argument for the constructor.
 
 
-In order to represent the `Component` to the DOM, you'll need to override the abstract `build` method.
+In order to represent the `StatelessComponent` to the DOM, you'll need to override the abstract `build` method.
 
-`Component` provide an `element` getter to an initialy empty `div`.
+`StatelessComponent` provide an `element` getter to an initialy empty `div`.
 
 The `build` method role is the compete the `element` with wathever you want your `element` to look the same way you would do in JavaScript.
 
@@ -82,12 +82,23 @@ void main() {
 }
 ```
 
+or use the extended method `addComponent()` :
+
+```dart
+void main() {
+
+  final output = document.querySelector('#output') as HTMLDivElement;
+  output.addComponent(MyComponent());
+
+}
+```
+
 Your text now appears to the DOM.
 
 
 ### Create a Stateless Component
 
-If we want to create a Statefull `Component`, we need to first define it's state.
+If we want to create a `StatefullComponent`, we need to first define it's state.
 
 To define a Component state, create a class that inherits from `ComponentState`.
 
@@ -136,7 +147,7 @@ Now, we will implements our `Component` for this state.
 
 ```dart
 
-class MyStatefullComponent extends Component<MyStatefullComponentState> {
+class MyStatefullComponent extends StatefullComponent<MyStatefullComponentState> {
 
    MyStatefullComponent({MyStatefullComponentState? state}) : super(state : state ?? MyStatefullComponentState());
 
@@ -150,7 +161,7 @@ This time we need to provide a state to the super constructor.
 We will override the `build` method. 
 
 ```dart
-class MyStatefullComponent extends Component<MyStatefullComponentState> {
+class MyStatefullComponent extends StatefullComponent<MyStatefullComponentState> {
 
    MyStatefullComponent({MyStatefullComponentState? state}) : super(state : state ?? MyStatefullComponentState());
 
@@ -188,7 +199,7 @@ This mean any local state will be discarded. We can override this method to only
 
 ```dart
 
-class MyStatefullComponent extends Component<MyStatefullComponentState> {
+class MyStatefullComponent extends StatefullComponent<MyStatefullComponentState> {
 
    MyStatefullComponent({MyStatefullComponentState? state}) : super(state : state ?? MyStatefullComponentState());
 
@@ -229,11 +240,11 @@ class LocalComponentState extends ComponentState {
 }
 
 
-class StatefullComponent extends Component<LocalComponentState> {
+class LocalComponent extends StatefullComponent<LocalComponentState> {
 
     final ParentComponentState parentState;
 
-    StatefullComponent({LocalComponentState? state , required this.parentState }) : super(state ?? LocalComponentState()) {
+    LocalComponent({LocalComponentState? state , required this.parentState }) : super(state ?? LocalComponentState()) {
         parentState.addListener(this);
     }
 
