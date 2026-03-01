@@ -12,7 +12,7 @@ The project is a single file you can add to your project. It provides two classe
 
 ## Creating a custom component
 
-To create a component create a class that inherits from either `StatelessComponent` or `StatefullComponent` :
+To create a component create a class tha inherits from `Component` :
 
 ```dart
 
@@ -221,7 +221,7 @@ class MyStatefullComponent extends StatefullComponent<MyStatefullComponentState>
 
 ```
 
-Here we just change the text that use the updated text.
+Here we just change the text that use the updated state.
 
 
 ### Update UI from extenal state
@@ -244,7 +244,7 @@ class LocalComponent extends StatefullComponent<LocalComponentState> {
 
     final ParentComponentState parentState;
 
-    LocalComponent({LocalComponentState? state , required this.parentState }) : super(state ?? LocalComponentState()) {
+    StatefullComponent({LocalComponentState? state , required this.parentState }) : super(state ?? LocalComponentState()) {
         parentState.addListener(this);
     }
 
