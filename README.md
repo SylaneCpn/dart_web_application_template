@@ -12,7 +12,7 @@ The project is a single file you can add to your project. It provides two classe
 
 ## Creating a custom component
 
-To create a component create a class tha inherits from `Component` :
+To create a component create a class that inherits from either `StatelessComponent` or `StatefullComponent` :
 
 ```dart
 
@@ -244,7 +244,7 @@ class LocalComponent extends StatefullComponent<LocalComponentState> {
 
     final ParentComponentState parentState;
 
-    StatefullComponent({LocalComponentState? state , required this.parentState }) : super(state ?? LocalComponentState()) {
+    LocalComponent({LocalComponentState? state , required this.parentState }) : super(state : state ?? LocalComponentState()) {
         parentState.addListener(this);
     }
 
